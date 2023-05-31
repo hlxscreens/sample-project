@@ -1,4 +1,4 @@
-const POS_ENDPOINT = '/screens/menus/pos-data.json';
+const POS_ENDPOINT = '/content/screens/menus/pos-data.json';
 
 export const startsWithTemplateLiteral = '{{';
 export const endsWithTemplateLiteral = '}}';
