@@ -439,6 +439,17 @@ export async function loadBlocks(main) {
   }
 }
 
+export function getTemplateName(doc) {
+  let template = '';
+  const head = doc.querySelector('head');
+  for (const meta of [...head.querySelectorAll(':scope > meta')]) {
+    if(meta.getAttribute('name') === 'template') {
+      template = meta.getAttribute('content');
+    }
+  }
+  return template;
+}
+
 /**
  * Returns a picture element with webp and fallbacks
  * @param {string} src The image URL

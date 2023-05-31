@@ -8,10 +8,16 @@ import {
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
+  getTemplateName,
   loadCSS,
 } from './lib-franklin.js';
 
+import { layout, nestedTable } from './menu-builder.js';
+
+import { populateValuesContent } from './menu-content-parser.js';
+
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -88,10 +94,21 @@ export function addFavIcon(href) {
 }
 
 /**
+ * Checks if the doc is menuboard or not
+ * @param doc
+ * @returns <boolean>
+ */
+function isMenuBoard(doc) {
+  return getTemplateName(doc) === 'menuboard';
+}
+
+/**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
+  const isMenuBoardCase = isMenuBoard(doc);
+
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
@@ -99,8 +116,20 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+  if(isMenuBoardCase) {
+    await nestedTable(doc);
+    await layout(doc);
+    await populateValuesContent();
+  }
+
+  if(isMenuBoardCase) {
+    loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles-menuboard.css`);
+    loadCSS(`${window.hlx.codeBasePath}/styles/styles-menuboard.css`);
+  } else {
+    loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+  }
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
+
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
