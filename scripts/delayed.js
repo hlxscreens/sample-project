@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { sampleRUM } from './lib-franklin.js';
+import { sampleRUM, isMenuBoardTemplate } from './lib-franklin.js';
 
 const MENU_CAFE_FONT_SIZE_CACHE_KEY = 'menu-cafe-fontSize';
 
@@ -51,5 +51,7 @@ async function checkAndSetTypography() {
 }
 
 setTimeout(() => {
-    checkAndSetTypography();
+    if(isMenuBoardTemplate(document)) {
+        checkAndSetTypography();
+    }
 }, 1);

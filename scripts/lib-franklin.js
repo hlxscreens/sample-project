@@ -129,6 +129,7 @@ export function toCamelCase(name) {
 }
 
 const ICONS_CACHE = {};
+const MENUBOARD_TEMPLATE = 'menuboard';
 /**
  * Replace icons with inline SVG and prefix with codeBasePath.
  * @param {Element} [element] Element containing icons
@@ -448,6 +449,15 @@ export function getTemplateName(doc) {
     }
   }
   return template;
+}
+
+/**
+ * Checks if the doc is menuboard or not
+ * @param doc
+ * @returns <boolean>
+ */
+export function isMenuBoardTemplate(doc) {
+  return getTemplateName(doc) === MENUBOARD_TEMPLATE;
 }
 
 /**

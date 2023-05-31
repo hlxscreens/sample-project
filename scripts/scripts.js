@@ -8,7 +8,7 @@ import {
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
-  getTemplateName,
+  isMenuBoardTemplate,
   loadCSS,
 } from './lib-franklin.js';
 
@@ -93,21 +93,13 @@ export function addFavIcon(href) {
   }
 }
 
-/**
- * Checks if the doc is menuboard or not
- * @param doc
- * @returns <boolean>
- */
-function isMenuBoard(doc) {
-  return getTemplateName(doc) === 'menuboard';
-}
 
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  const isMenuBoardCase = isMenuBoard(doc);
+  const isMenuBoardCase = isMenuBoardTemplate(doc);
 
   const main = doc.querySelector('main');
   await loadBlocks(main);
