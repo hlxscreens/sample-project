@@ -129,6 +129,7 @@ export function toCamelCase(name) {
 }
 
 const ICONS_CACHE = {};
+const MENUBOARD_TEMPLATE = 'menuboard';
 /**
  * Replace icons with inline SVG and prefix with codeBasePath.
  * @param {Element} [element] Element containing icons
@@ -437,6 +438,26 @@ export async function loadBlocks(main) {
     await loadBlock(blocks[i]);
     updateSectionsStatus(main);
   }
+}
+
+export function getTemplateName(doc) {
+  let template = '';
+  const head = doc.querySelector('head');
+  for (const meta of [...head.querySelectorAll(':scope > meta')]) {
+    if(meta.getAttribute('name') === 'template') {
+      template = meta.getAttribute('content');
+    }
+  }
+  return template;
+}
+
+/**
+ * Checks if the doc is menuboard or not
+ * @param doc
+ * @returns <boolean>
+ */
+export function isMenuBoardTemplate(doc) {
+  return getTemplateName(doc) === MENUBOARD_TEMPLATE;
 }
 
 /**
