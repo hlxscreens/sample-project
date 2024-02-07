@@ -19,5 +19,5 @@
     "cloudToken": "",
     "enableDeveloperMode": true,
     "enableMultipleCP": true,
-    "playerPingInterval": 60000
+    "playerPingInterval": 40000
 }
