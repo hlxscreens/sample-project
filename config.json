@@ -14,7 +14,7 @@
     "enableNativeVideo": false,
     "enableAutoScreenshot": false,
     "enableAdvancedPlaybackMonitoring": false,
-    "cloudMode": false,
+    "cloudMode": true,
     "cloudUrl": "https://screens-dev.adobeioruntime.net",
     "cloudToken": "",
     "enableDeveloperMode": true,
